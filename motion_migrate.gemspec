@@ -19,4 +19,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rspec'
   gem.add_dependency 'nokogiri'
+
+  gem.add_runtime_dependency("motion-require", ">= 0.0.6")
 end

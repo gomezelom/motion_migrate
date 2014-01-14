@@ -1,15 +1,15 @@
+require 'motion-require'
+
 unless defined?(Motion::Project::Config)
   raise "This file must be required within a RubyMotion project Rakefile."
 end
 
 Motion::Project::App.setup do |app|
-  Dir.glob(File.join(File.dirname(__FILE__), "motion_migrate/motion_model/**/*.rb")).each do |file|
-    app.files.unshift(file)
-  end
-  app.files.unshift(File.join(File.dirname(__FILE__), 'motion_migrate/model.rb'))
-
   app.frameworks += ['CoreData'] unless app.frameworks.include?("CoreData")
 end
+
+Motion::Require.all(Dir.glob(File.expand_path('../motion_migrate/motion_model/**/*.rb', __FILE__)) + 
+                    Dir.glob(File.expand_path('../motion_migrate/model.rb', __FILE__)))
 
 module MotionMigrate
 end
