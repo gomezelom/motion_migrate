@@ -1,14 +1,26 @@
 # -*- coding: utf-8 -*-
 $:.unshift("/Library/RubyMotion/lib")
-require 'motion/project/template/ios'
 
-require 'bundler'
-Bundler.require
+begin
+  require 'motion/project/template/ios'
+  require 'rubygems'
+  require 'bundler'
+  Bundler.require
+  Motion::Require.all
+  
+rescue LoadError
+end
 
 Motion::Project::App.setup do |app|
   app.name = 'Motion Migrate Spec Project'
+  app.identifier = 'com.example.authexample'
+  app.device_family = :iphone
+  app.interface_orientations = [:portrait]
+  app.files = (app.files - Dir.glob('./app/**/*.rb')) + Dir.glob("./lib/**/*.rb") + Dir.glob("./config/**/*.rb") + Dir.glob("./app/**/*.rb")
+
+  app.detect_dependencies = false
 
   app.pods do
-    pod 'MagicalRecord', '2.1'
+    pod 'MagicalRecord'
   end
 end
